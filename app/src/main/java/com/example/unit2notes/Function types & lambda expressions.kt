@@ -116,3 +116,64 @@ val trick = {
 val treat: () -> Unit = {
     println("Have a treat!")
 }
+
+//5. Write lambda expressions with shorthand syntax
+//Lambda expressions provide a variety of ways to make your code more concise. You explore a few of them in this section because most of the lambda expressions that you encounter and write are written with shorthand syntax.
+// When a function has a single parameter and you don't provide a name, Kotlin implicitly assigns it the it name, so you can omit the parameter name and -> symbol, which makes your lambda expressions more concise
+fun main() {
+    val coins: (Int) -> String = {
+        "$it quarters"
+    }
+
+    //Pass a lambda expression directly into a function
+//The coins() function is currently only used in one place. What if you could simply pass a lambda expression directly into the trickOrTreat() function without the need to first create a variable?
+//
+//Lambda expressions are simply function literals, just like 0 is an integer literal or "Hello" is a string literal. You can pass a lambda expression directly into a function call.
+
+    fun main() {
+        val treatFunction = trickOrTreat(false, { "$it quarters" })
+        val trickFunction = trickOrTreat(true, null)
+        treatFunction()
+        trickFunction()
+    }
+
+//Use trailing lambda syntax
+//You can use another shorthand option to write lambdas when a function type is the last parameter of a function. If so, you can place the lambda expression after the closing parenthesis to call the function.
+    val treatFunction = trickOrTreat(false) { "$it quarters" }
+
+//6. Use the repeat() function
+//When a function returns a function or takes a function as an argument, it's called a higher-order function. The trickOrTreat() function is an example of a higher-order function because it takes a function of ((Int) -> String)? type as a parameter and returns a function of () -> Unit type. Kotlin provides several useful higher-order functions, which you can take advantage of with your newfound knowledge of lambdas.
+//
+//The repeat() function is one such higher-order function. The repeat() function is a concise way to express a for loop with functions.
+
+    repeat(times: Int, action: (Int) -> Unit)
+
+//The times parameter is the number of times that the action should happen. The action parameter is a function that takes a single Int parameter and returns a Unit type. The action function's Int parameter is the number of times that the action has executed so far, such as a 0 argument for the first iteration or a 1 argument for the second iteration. You can use the repeat() function to repeat code a specified number of times, similar to a for loop.
+
+    fun main() {
+
+        val cupcake: (Int) -> String = { "Have a cupcake!" }
+
+        val treatFunction = trickOrTreat(false) { "$it quarters" }
+        val trickFunction = trickOrTreat(true, null)
+        repeat(4) {
+            treatFunction()
+        }
+        trickFunction()
+    }
+
+//    7. Conclusion
+//Congratulations! You learned the basics of function types and lambda expressions. Familiarity with these concepts helps you as you learn more about the Kotlin language. The use of function types, higher-order functions, and shorthand syntax also makes your code more concise and easier to read.
+//
+//Summary
+//Functions in Kotlin are first-class constructs and can be treated like data types.
+//Lambda expressions provide a shorthand syntax to write functions.
+//You can pass function types into other functions.
+//You can return a function type from another function.
+//A lambda expression returns the value of the last expression.
+//If a parameter label is omitted in a lambda expression with a single parameter, it's referred to with the it identifier.
+//Lambdas can be written inline without a variable name.
+//If a function's last parameter is a function type, you can use trailing lambda syntax to move the lambda expression after the last parenthesis when you call a function.
+//Higher-order functions are functions that take other functions as parameters or return a function.
+//The repeat() function is a higher-order function that works similarly to a for loop.
+
